@@ -68,8 +68,8 @@ Serial.println(receivedMessage);
 delay(1000);
   // Decipher string message for unit information (unit type, serial, LCU info..)
 char *message = receivedMessage;
-cSFP(rdata, message);
-rdata.trim();
+//cSFP(rdata, message);
+//rdata.trim();
 //if (rdata.startsWith("t")){
   //cSF(sfToken, 10);
   //cSF(sfSub, 3);
@@ -91,15 +91,20 @@ rdata.trim();
   //rdata.nextToken(sfToken, delimeters);
   //sfToken.toFloat(float estop_on);
   // End DB
-  Paint_NewImage(LCD_WIDTH, LCD_HEIGHT, 0, WHITE);
-  Paint_Clear(RED);
-  Paint_DrawString_EN(100, 100, "YouSolar", &Font24, RED, BLACK);
-  //Paint_DrawString_EN(30, 34, "ABC", &Font24, BLUE, CYAN);
-  //Paint_DrawRectangle(125, 10, 225, 58, BLACK,  DOT_PIXEL_2X2,DRAW_FILL_EMPTY);
-  //Paint_DrawLine(125, 10, 225, 58, MAGENTA,   DOT_PIXEL_2X2,LINE_STYLE_SOLID);
-  //Paint_DrawCircle(180,100, 25, BLACK,  DOT_PIXEL_2X2,   DRAW_FILL_EMPTY);
-  //Paint_DrawImage(gImage_70X70, 20, 80, 70, 70); 
-  //Paint_DrawFloatNum (5, 150 ,987.654321,4,  &Font20,    WHITE,   LIGHTGREEN);
+Paint_NewImage(LCD_WIDTH, LCD_HEIGHT, 0, WHITE);
+Paint_Clear(RED);
+  /************************************
+  * Basic Grid Template for LCD Display
+  *************************************/
+
+Paint_DrawLine(160, 0, 160, 240, WHITE, DOT_PIXEL_1X1,LINE_STYLE_SOLID);// Horizontal grid line
+Paint_DrawLine(0, 120, 320, 120, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID); //Vertical grid line
+Paint_DrawRectangle(0, 0, 160, 120, WHITE,  DOT_PIXEL_1X1, DRAW_FILL_FULL); // error example box
+Paint_DrawRectangle(160, 120, 320, 240, WHITE, DOT_PIXEL_1X1, DRAW_FILL_FULL); // error example box
+Paint_DrawString_EN(40, 70, "BUS VOLTAGE", &Font16, WHITE, RED); // data label
+Paint_DrawString_EN(200, 190, "BUS CURRENT", &Font16, WHITE, RED); // data label
+Paint_DrawFloatNum (40, 50 , 987.654321, 1,  &Font24,    RED,   WHITE);
+Paint_DrawFloatNum (200, 170 , 987.654321, 1,  &Font24,    RED,   WHITE);
 delay(5000);  // delay before moving to mode 1
 loop();
 }
@@ -109,6 +114,18 @@ loop();
      LCD SCREEN TEMPLATES
 ******************************/
 
+void template_mode_estop(float dis1, float dis2){
+  LCD_Clear(0xffff);
+  Paint_NewImage(LCD_WIDTH, LCD_HEIGHT, 0, WHITE); // Fill whole quadrant with white.
+  Paint_DrawString_EN(60, 150, char("E STOP"), &Font24, RED, WHITE); // Draw E-STOP char in top quadrant.
+  Paint_DrawRectangle(0, 120, 320, 240, RED, DOT_PIXEL_6X6, DRAW_FILL_FULL);  // Draw Red Rectangle on Bottom
+  Paint_DrawLine(160, 0, 160, 240, WHITE, DOT_PIXEL_1X1,LINE_STYLE_SOLID); // Seperate into two sides with line
+  Paint_DrawString_EN(40, 90, "BUS VOLTAGE", &Font16, WHITE, RED);
+  Paint_DrawString_EN(200, 190, "BUS CURRENT", &Font16, WHITE, RED);
+  Paint_DrawFloatNum (50, 60 , 987.654321, 1,  &Font24,    RED,   WHITE);
+  Paint_DrawFloatNum (210, 170 , 987.654321, 1,  &Font24,    RED,   WHITE);
+  delay(1000); // 1s time for screen to refresh.
+}
 void template_mode_main(int switch_value, float Voltage){
   LCD_Clear(0xffff);
   Paint_NewImage(LCD_WIDTH, LCD_HEIGHT, 0, WHITE);
@@ -193,7 +210,7 @@ memory_mode = mode_pin;
 mode_pin = mode_pin_v;
 switch (mode_pin_v){
   case 0: // No change in mode switching
-    template_mode_main(mode_pin_v, lcu_data.Voltage);
+    template_mode_estop(mode_pin_v, lcu_data.Voltage);
     Serial.println("Mode 0");
     //delay(1000);
     break;
