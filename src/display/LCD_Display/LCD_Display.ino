@@ -101,8 +101,8 @@ Paint_DrawLine(160, 0, 160, 240, WHITE, DOT_PIXEL_1X1,LINE_STYLE_SOLID);// Horiz
 Paint_DrawLine(0, 120, 320, 120, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID); //Vertical grid line
 Paint_DrawRectangle(0, 0, 160, 120, WHITE,  DOT_PIXEL_1X1, DRAW_FILL_FULL); // error example box
 Paint_DrawRectangle(160, 120, 320, 240, WHITE, DOT_PIXEL_1X1, DRAW_FILL_FULL); // error example box
-Paint_DrawString_EN(40, 70, "BUS VOLTAGE", &Font16, WHITE, RED); // data label
-Paint_DrawString_EN(200, 190, "BUS CURRENT", &Font16, WHITE, RED); // data label
+Paint_DrawString_EN(40, 70, "VOLTAGE", &Font16, WHITE, RED); // data label
+Paint_DrawString_EN(200, 190, "CURRENT", &Font16, WHITE, RED); // data label
 Paint_DrawFloatNum (40, 50 , 987.654321, 1,  &Font24,    RED,   WHITE);
 Paint_DrawFloatNum (200, 170 , 987.654321, 1,  &Font24,    RED,   WHITE);
 delay(5000);  // delay before moving to mode 1
@@ -117,23 +117,26 @@ loop();
 void template_mode_estop(float dis1, float dis2){
   LCD_Clear(0xffff);
   Paint_NewImage(LCD_WIDTH, LCD_HEIGHT, 0, WHITE); // Fill whole quadrant with white.
-  Paint_DrawString_EN(60, 150, char("E STOP"), &Font24, RED, WHITE); // Draw E-STOP char in top quadrant.
-  Paint_DrawRectangle(0, 120, 320, 240, RED, DOT_PIXEL_6X6, DRAW_FILL_FULL);  // Draw Red Rectangle on Bottom
+  Paint_Clear(WHITE);
+  Paint_DrawString_EN(110, 60, "E STOP", &Font24, WHITE, RED); // Draw E-STOP char in top quadrant.
+  Paint_DrawRectangle(0, 120, 320, 240, RED, DOT_PIXEL_1X1, DRAW_FILL_FULL);  // Draw Red Rectangle on Bottom
   Paint_DrawLine(160, 0, 160, 240, WHITE, DOT_PIXEL_1X1,LINE_STYLE_SOLID); // Seperate into two sides with line
-  Paint_DrawString_EN(40, 90, "BUS VOLTAGE", &Font16, WHITE, RED);
-  Paint_DrawString_EN(200, 190, "BUS CURRENT", &Font16, WHITE, RED);
-  Paint_DrawFloatNum (50, 60 , 987.654321, 1,  &Font24,    RED,   WHITE);
-  Paint_DrawFloatNum (210, 170 , 987.654321, 1,  &Font24,    RED,   WHITE);
-  delay(1000); // 1s time for screen to refresh.
+  Paint_DrawString_EN(210, 50, "VOLTAGE", &Font16, RED, WHITE);  // Label for data 1
+  Paint_DrawString_EN(210, 190, "CURRENT", &Font16, RED, WHITE); // label for data 2
+  Paint_DrawFloatNum (200, 50 , 987.654321, 1,  &Font24,    WHITE,   RED); // data 1
+  Paint_DrawFloatNum (200, 190 , 987.654321, 1,  &Font24,    WHITE,   RED); // data 2
+  delay(1000000); // 1s time for screen to refresh.
 }
+
 void template_mode_main(int switch_value, float Voltage){
   LCD_Clear(0xffff);
   Paint_NewImage(LCD_WIDTH, LCD_HEIGHT, 0, WHITE);
   Paint_Clear(RED);
-  Paint_DrawString_EN(120, 120, char(switch_value), &Font24, RED, BLACK);
-  Paint_DrawRectangle(5, 5, 315, 235, BLACK,  DOT_PIXEL_2X2,DRAW_FILL_EMPTY);
-  Paint_DrawCircle(180,100, 25, GREEN,  DOT_PIXEL_2X2,   DRAW_FILL_EMPTY);
-  Paint_DrawCircle(180,125, 25, BLUE,  DOT_PIXEL_2X2,   DRAW_FILL_EMPTY);
+  Paint_DrawLine(160, 0, 160, 240, WHITE, DOT_PIXEL_1X1,LINE_STYLE_SOLID);// Horizontal grid line
+  Paint_DrawLine(0, 120, 320, 120, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID); //Vertical grid line
+  Paint_DrawString_EN(120, 120, "Main Mode", &Font24, RED, BLACK);
+  //Paint_DrawCircle(180,100, 25, GREEN,  DOT_PIXEL_2X2,   DRAW_FILL_FULL);
+  //Paint_DrawCircle(180,125, 25, BLUE,  DOT_PIXEL_2X2,   DRAW_FILL_FULL);
 
 }
 
@@ -142,10 +145,9 @@ void template_mode_1(int switch_value, float Voltage)
   LCD_Clear(0xffff);
   Paint_NewImage(LCD_WIDTH, LCD_HEIGHT, 0, WHITE);
   Paint_Clear(GREEN);
+  Paint_DrawLine(160, 0, 160, 240, WHITE, DOT_PIXEL_1X1,LINE_STYLE_SOLID);// Horizontal grid line
+  Paint_DrawLine(0, 120, 320, 120, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID); //Vertical grid line
   Paint_DrawString_EN(80, 60, "386.4 V", &Font24, GREEN, RED);
-  Paint_DrawRectangle(15, 15, 205, 205, BLACK,  DOT_PIXEL_2X2,DRAW_FILL_EMPTY);
-  Paint_DrawCircle(180,100, 25, GREEN,  DOT_PIXEL_2X2,   DRAW_FILL_EMPTY);
-  Paint_DrawCircle(180,125, 25, BLUE,  DOT_PIXEL_2X2,   DRAW_FILL_EMPTY);
 }
 
 void template_mode_2(int switch_value, float Voltage)
@@ -153,10 +155,9 @@ void template_mode_2(int switch_value, float Voltage)
   LCD_Clear(0xffff);
   Paint_NewImage(LCD_WIDTH, LCD_HEIGHT, 0, WHITE);
   Paint_Clear(BLACK);
+  Paint_DrawLine(160, 0, 160, 240, WHITE, DOT_PIXEL_1X1,LINE_STYLE_SOLID);// Horizontal grid line
+  Paint_DrawLine(0, 120, 320, 120, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID); //Vertical grid line
   Paint_DrawString_EN(140, 120, char(switch_value), &Font24, GREEN, CYAN);
-  Paint_DrawRectangle(125, 10, 225, 58, BLACK,  DOT_PIXEL_2X2,DRAW_FILL_EMPTY);
-  Paint_DrawCircle(180,100, 25, GREEN,  DOT_PIXEL_2X2,   DRAW_FILL_EMPTY);
-  Paint_DrawCircle(180,125, 25, BLUE,  DOT_PIXEL_2X2,   DRAW_FILL_EMPTY);
 }
 
 
@@ -212,24 +213,24 @@ switch (mode_pin_v){
   case 0: // No change in mode switching
     template_mode_estop(mode_pin_v, lcu_data.Voltage);
     Serial.println("Mode 0");
-    //delay(1000);
+    delay(1000);
     break;
   case 1:
   if (memory_mode == mode_pin){break;}
   else{
     template_mode_1(mode_pin_v, lcu_data.Voltage);
     Serial.println("Mode 1");
-    //delay(1000);
+    delay(1000);
     break;}
   case 2:
     template_mode_2(mode_pin_v, lcu_data.Voltage);
     Serial.println("Mode 2");
-    //delay(1000);
+    delay(1000);
     break;
   default:
     template_mode_main(mode_pin_v, lcu_data.Voltage);
     Serial.println("In the wrong land..");
-    //delay(10000);
+    delay(1000);
     break;
 }
 
