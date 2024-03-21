@@ -104,10 +104,13 @@ Paint_DrawRectangle(160, 120, 320, 240, WHITE, DOT_PIXEL_1X1, DRAW_FILL_FULL); /
 Paint_DrawString_EN(40, 70, "VOLTAGE", &Font16, WHITE, RED); // data label
 Paint_DrawString_EN(200, 190, "CURRENT", &Font16, WHITE, RED); // data label
 Paint_DrawFloatNum (40, 50 , 987.654321, 1,  &Font24,    RED,   WHITE);
-Paint_DrawFloatNum (200, 170 , 987.654321, 1,  &Font24,    RED,   WHITE);
+Paint_DrawFloatNum (200, 170 , 9.654321, 2,  &Font24,    RED,   WHITE);
 delay(5000);  // delay before moving to mode 1
 loop();
 }
+/*************************
+    LCD SCREEN FUNCTIONS
+*****************************/
 
 
 /*****************************
@@ -118,48 +121,57 @@ void template_mode_estop(float dis1, float dis2){
   LCD_Clear(0xffff);
   Paint_NewImage(LCD_WIDTH, LCD_HEIGHT, 0, WHITE); // Fill whole quadrant with white.
   Paint_Clear(WHITE);
+  Paint_DrawString_EN(0, 0, "Demo : Emergency Mode", &Font16, WHITE, BLACK);
   Paint_DrawString_EN(110, 60, "E STOP", &Font24, WHITE, RED); // Draw E-STOP char in top quadrant.
   Paint_DrawRectangle(0, 120, 320, 240, RED, DOT_PIXEL_1X1, DRAW_FILL_FULL);  // Draw Red Rectangle on Bottom
   Paint_DrawLine(160, 0, 160, 240, WHITE, DOT_PIXEL_1X1,LINE_STYLE_SOLID); // Seperate into two sides with line
-  Paint_DrawString_EN(210, 50, "VOLTAGE", &Font16, RED, WHITE);  // Label for data 1
-  Paint_DrawString_EN(210, 190, "CURRENT", &Font16, RED, WHITE); // label for data 2
-  Paint_DrawFloatNum (200, 50 , 987.654321, 1,  &Font24,    WHITE,   RED); // data 1
-  Paint_DrawFloatNum (200, 190 , 987.654321, 1,  &Font24,    WHITE,   RED); // data 2
-  delay(1000000); // 1s time for screen to refresh.
+  Paint_DrawString_EN(40, 190, "VOLTAGE", &Font16, RED, WHITE);  // Label for data 1
+  Paint_DrawString_EN(205, 190, "CURRENT", &Font16, RED, WHITE); // label for data 2
+  Paint_DrawFloatNum (40, 160 , 987.654321, 1,  &Font24,    WHITE,   RED); // data 1
+  Paint_DrawFloatNum (200, 160 , 11.334321, 1,  &Font24,    WHITE,   RED); // data 2
+  delay(5000); // 1s time for screen to refresh.
 }
 
 void template_mode_main(int switch_value, float Voltage){
   LCD_Clear(0xffff);
   Paint_NewImage(LCD_WIDTH, LCD_HEIGHT, 0, WHITE);
   Paint_Clear(RED);
+
   Paint_DrawLine(160, 0, 160, 240, WHITE, DOT_PIXEL_1X1,LINE_STYLE_SOLID);// Horizontal grid line
   Paint_DrawLine(0, 120, 320, 120, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID); //Vertical grid line
-  Paint_DrawString_EN(120, 120, "Main Mode", &Font24, RED, BLACK);
+  Paint_DrawString_EN(0, 0, "Main Mode", &Font16, RED, BLACK);
+  //Paint_DrawStringEN();
+  //Paint_DrawRectangle(0, 0, 160, 120, WHITE, DOT_PIXEL_1X1, DRAW_FILL_FULL); // error example box top right
+  //Paint_DrawRectangle(160, 120, 320, 240, WHITE, DOT_PIXEL_1X1, DRAW_FILL_FULL); // error example box bottom left
+  Paint_DrawRectangle(160, 120, 320, 240, WHITE, DOT_PIXEL_1X1, DRAW_FILL_FULL);
+  Paint_DrawRectangle(0, 120, 160, 240, WHITE, DOT_PIXEL_1X1, DRAW_FILL_FULL);
   //Paint_DrawCircle(180,100, 25, GREEN,  DOT_PIXEL_2X2,   DRAW_FILL_FULL);
   //Paint_DrawCircle(180,125, 25, BLUE,  DOT_PIXEL_2X2,   DRAW_FILL_FULL);
-
+  delay(5000);
 }
 
 void template_mode_1(int switch_value, float Voltage)
 {
   LCD_Clear(0xffff);
   Paint_NewImage(LCD_WIDTH, LCD_HEIGHT, 0, WHITE);
-  Paint_Clear(GREEN);
+  Paint_Clear(RED);
+  Paint_DrawString_EN(0, 0, "Demo: Mode 1", &Font16, RED, BLACK);
   Paint_DrawLine(160, 0, 160, 240, WHITE, DOT_PIXEL_1X1,LINE_STYLE_SOLID);// Horizontal grid line
   Paint_DrawLine(0, 120, 320, 120, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID); //Vertical grid line
-  Paint_DrawString_EN(80, 60, "386.4 V", &Font24, GREEN, RED);
+  //Paint_DrawString_EN(80, 60, "386.4 V", &Font24, GREEN, RED);
+  delay(5000);
 }
 
 void template_mode_2(int switch_value, float Voltage)
 {
   LCD_Clear(0xffff);
   Paint_NewImage(LCD_WIDTH, LCD_HEIGHT, 0, WHITE);
-  Paint_Clear(BLACK);
+  Paint_Clear(RED);
+  Paint_DrawString_EN(0, 0, "Demo: Mode 2", &Font16, RED, BLACK);
   Paint_DrawLine(160, 0, 160, 240, WHITE, DOT_PIXEL_1X1,LINE_STYLE_SOLID);// Horizontal grid line
   Paint_DrawLine(0, 120, 320, 120, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID); //Vertical grid line
-  Paint_DrawString_EN(140, 120, char(switch_value), &Font24, GREEN, CYAN);
+  delay(5000);
 }
-
 
 /**************************
     Main Control Loop
