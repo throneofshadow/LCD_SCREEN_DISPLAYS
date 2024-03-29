@@ -18,6 +18,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <SPI.h>
+#include "Debug.h"
 #include <avr/pgmspace.h>
 
 
@@ -33,7 +34,7 @@
 #define DEV_DC_PIN  7
 #define DEV_RST_PIN 8
 #define DEV_BL_PIN  9
-#define DEV_MODE_PIN 6
+
 
 /**
  * GPIO read and write

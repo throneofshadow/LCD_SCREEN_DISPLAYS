@@ -206,7 +206,7 @@ struct LCU_struct lcu_data = {
   398.8, 10.1, 100.0, 100.0, 100.0, 100.0
 };
 // A global variable, mode_value, is used to hold current screen mode in reference.
-int switch_value = digitalRead(DEV_MODE_PIN);  //READ SENSOR
+int switch_value = 1;  //READ SENSOR
 int mode_pin_v = mode_pin;  // point at main mode_pin
 // if pins match previous value, no change in screen
 //Serial.print("My step 1");

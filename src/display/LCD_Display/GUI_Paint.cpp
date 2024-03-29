@@ -7,7 +7,6 @@
 #include <stdlib.h>
 #include <string.h> //memset()
 #include <math.h>
-#include "debug.h"
 
 volatile PAINT Paint;
 
@@ -451,21 +450,8 @@ void Paint_DrawString_EN(UWORD Xstart, UWORD Ystart, const char * pString,
     //The next word of the abscissa increases the font of the broadband
     Xpoint += Font->Width;
   }
+
 }
-
-
-/******************************************************************************
-  function: Display the string
-  parameter:
-    Xstart           ：X coordinate
-    Ystart           ：Y coordinate
-    pString          ：The first address of the Chinese string and English
-                        string to be displayed
-    Font             ：A structure pointer that displays a character size
-    Color_Background : Select the background color of the English character
-    Color_Foreground : Select the foreground color of the English character
-******************************************************************************/
-
 
 /******************************************************************************
   function: Display nummber

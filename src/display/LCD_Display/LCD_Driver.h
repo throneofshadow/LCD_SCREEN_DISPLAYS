@@ -15,8 +15,8 @@
 
 #include "DEV_Config.h"
 
-#define LCD_WIDTH   320 //LCD width
-#define LCD_HEIGHT  240 //LCD height
+#define LCD_WIDTH   240 //LCD width
+#define LCD_HEIGHT  320 //LCD height
 
  
 void LCD_WriteData_Word(UWORD da);

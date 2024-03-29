@@ -15,6 +15,11 @@
 function:
 	Hardware reset
 *******************************************************************************/
+#include "LCD_Driver.h"
+/*******************************************************************************
+function:
+	Hardware reset
+*******************************************************************************/
 static void LCD_Reset(void)
 {
 	DEV_Delay_ms(200);
@@ -61,94 +66,92 @@ void LCD_Init(void)
 {
 	LCD_Reset();
 
-	LCD_Write_Command(0x36);
-	LCD_WriteData_Byte(0xA0); 
-
-	LCD_Write_Command(0x3A); 
-	LCD_WriteData_Byte(0x05);
-
-	LCD_Write_Command(0x21); 
-
-	LCD_Write_Command(0x2A);
+	LCD_Write_Command(0x11); //Sleep out
+	
+	LCD_Write_Command(0xCF);
 	LCD_WriteData_Byte(0x00);
-	LCD_WriteData_Byte(0x01);
+	LCD_WriteData_Byte(0xC1);
+	LCD_WriteData_Byte(0X30);
+	LCD_Write_Command(0xED);
+	LCD_WriteData_Byte(0x64);
+	LCD_WriteData_Byte(0x03);
+	LCD_WriteData_Byte(0X12);
+	LCD_WriteData_Byte(0X81);
+	LCD_Write_Command(0xE8);
+	LCD_WriteData_Byte(0x85);
 	LCD_WriteData_Byte(0x00);
-	LCD_WriteData_Byte(0x3F);
-
-	LCD_Write_Command(0x2B);
-	LCD_WriteData_Byte(0x00);
-	LCD_WriteData_Byte(0x00);
-	LCD_WriteData_Byte(0x00);
-	LCD_WriteData_Byte(0xEF);
-
-	LCD_Write_Command(0xB2);
-	LCD_WriteData_Byte(0x0C);
-	LCD_WriteData_Byte(0x0C);
-	LCD_WriteData_Byte(0x00);
-	LCD_WriteData_Byte(0x33);
-	LCD_WriteData_Byte(0x33);
-
-	LCD_Write_Command(0xB7);
-	LCD_WriteData_Byte(0x35); 
-
-	LCD_Write_Command(0xBB);
-	LCD_WriteData_Byte(0x1F);
-
-	LCD_Write_Command(0xC0);
+	LCD_WriteData_Byte(0x79);
+	LCD_Write_Command(0xCB);
+	LCD_WriteData_Byte(0x39);
 	LCD_WriteData_Byte(0x2C);
-
-	LCD_Write_Command(0xC2);
-	LCD_WriteData_Byte(0x01);
-
-	LCD_Write_Command(0xC3);
-	LCD_WriteData_Byte(0x12);   
-
-	LCD_Write_Command(0xC4);
+	LCD_WriteData_Byte(0x00);
+	LCD_WriteData_Byte(0x34);
+	LCD_WriteData_Byte(0x02);
+	LCD_Write_Command(0xF7);
 	LCD_WriteData_Byte(0x20);
-
-	LCD_Write_Command(0xC6);
-	LCD_WriteData_Byte(0x0F); 
-
-	LCD_Write_Command(0xD0);
-	LCD_WriteData_Byte(0xA4);
-	LCD_WriteData_Byte(0xA1);
-
-	LCD_Write_Command(0xE0);
-	LCD_WriteData_Byte(0xD0);
-	LCD_WriteData_Byte(0x08);
-	LCD_WriteData_Byte(0x11);
-	LCD_WriteData_Byte(0x08);
-	LCD_WriteData_Byte(0x0C);
-	LCD_WriteData_Byte(0x15);
-	LCD_WriteData_Byte(0x39);
+	LCD_Write_Command(0xEA);
+	LCD_WriteData_Byte(0x00);
+	LCD_WriteData_Byte(0x00);
+	LCD_Write_Command(0xC0); //Power control
+	LCD_WriteData_Byte(0x1D); //VRH[5:0]
+	LCD_Write_Command(0xC1); //Power control
+	LCD_WriteData_Byte(0x12); //SAP[2:0];BT[3:0]
+	LCD_Write_Command(0xC5); //VCM control
 	LCD_WriteData_Byte(0x33);
-	LCD_WriteData_Byte(0x50);
-	LCD_WriteData_Byte(0x36);
-	LCD_WriteData_Byte(0x13);
-	LCD_WriteData_Byte(0x14);
-	LCD_WriteData_Byte(0x29);
-	LCD_WriteData_Byte(0x2D);
-
-	LCD_Write_Command(0xE1);
-	LCD_WriteData_Byte(0xD0);
+	LCD_WriteData_Byte(0x3F);
+	LCD_Write_Command(0xC7); //VCM control
+	LCD_WriteData_Byte(0x92);
+	LCD_Write_Command(0x3A); // Memory Access Control
+	LCD_WriteData_Byte(0x55);
+	LCD_Write_Command(0x36); // Memory Access Control
 	LCD_WriteData_Byte(0x08);
+	LCD_Write_Command(0xB1);
+	LCD_WriteData_Byte(0x00);
+	LCD_WriteData_Byte(0x12);
+	LCD_Write_Command(0xB6); // Display Function Control
+	LCD_WriteData_Byte(0x0A);
+	LCD_WriteData_Byte(0xA2);
+
+	LCD_Write_Command(0x44);
+	LCD_WriteData_Byte(0x02);
+
+	LCD_Write_Command(0xF2); // 3Gamma Function Disable
+	LCD_WriteData_Byte(0x00);
+	LCD_Write_Command(0x26); //Gamma curve selected
+	LCD_WriteData_Byte(0x01);
+	LCD_Write_Command(0xE0); //Set Gamma
+	LCD_WriteData_Byte(0x0F);
+	LCD_WriteData_Byte(0x22);
+	LCD_WriteData_Byte(0x1C);
+	LCD_WriteData_Byte(0x1B);
+	LCD_WriteData_Byte(0x08);
+	LCD_WriteData_Byte(0x0F);
+	LCD_WriteData_Byte(0x48);
+	LCD_WriteData_Byte(0xB8);
+	LCD_WriteData_Byte(0x34);
+	LCD_WriteData_Byte(0x05);
+	LCD_WriteData_Byte(0x0C);
+	LCD_WriteData_Byte(0x09);
+	LCD_WriteData_Byte(0x0F);
+	LCD_WriteData_Byte(0x07);
+	LCD_WriteData_Byte(0x00);
+	LCD_Write_Command(0XE1); //Set Gamma
+	LCD_WriteData_Byte(0x00);
+	LCD_WriteData_Byte(0x23);
+	LCD_WriteData_Byte(0x24);
+	LCD_WriteData_Byte(0x07);
 	LCD_WriteData_Byte(0x10);
-	LCD_WriteData_Byte(0x08);
+	LCD_WriteData_Byte(0x07);
+	LCD_WriteData_Byte(0x38);
+	LCD_WriteData_Byte(0x47);
+	LCD_WriteData_Byte(0x4B);
+	LCD_WriteData_Byte(0x0A);
+	LCD_WriteData_Byte(0x13);
 	LCD_WriteData_Byte(0x06);
-	LCD_WriteData_Byte(0x06);
-	LCD_WriteData_Byte(0x39);
-	LCD_WriteData_Byte(0x44);
-	LCD_WriteData_Byte(0x51);
-	LCD_WriteData_Byte(0x0B);
-	LCD_WriteData_Byte(0x16);
-	LCD_WriteData_Byte(0x14);
-	LCD_WriteData_Byte(0x2F);
-	LCD_WriteData_Byte(0x31);
-	LCD_Write_Command(0x21);
-
-	LCD_Write_Command(0x11);
-
-	LCD_Write_Command(0x29);
+	LCD_WriteData_Byte(0x30);
+	LCD_WriteData_Byte(0x38);
+	LCD_WriteData_Byte(0x0F);
+	LCD_Write_Command(0x29); //Display on
 }
 
 /******************************************************************************
